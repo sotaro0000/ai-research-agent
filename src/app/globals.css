@@ -7,7 +7,11 @@
 }
 
 body {
-  @apply bg-paper font-sans text-stone-700 antialiased;
+  @apply bg-paper font-sans text-slate-700 antialiased;
+  /* 上質な奥行き：上部に淡いティールのラディアルウォッシュ */
+  background-image: radial-gradient(115% 55% at 50% -8%, #ecfdf5 0%, rgba(236, 253, 245, 0) 60%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 ::selection {

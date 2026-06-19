@@ -10,9 +10,9 @@ const PHASE_LABEL: Record<AgentStep["phase"], string> = {
 export default function StepTimeline({ steps }: { steps: AgentStep[] }) {
   if (!steps.length) return null;
   return (
-    <section className="border border-stone-200 bg-white p-6">
+    <section className="border border-slate-200 bg-white p-6">
       <p className="label-mono mb-4">Research Protocol</p>
-      <ol className="divide-y divide-stone-100 border-t border-stone-100">
+      <ol className="divide-y divide-slate-100 border-t border-slate-100">
         {steps.map((s, i) => (
           <li key={i} className="flex gap-4 py-3">
             <span className="index-serif mt-0.5 text-base font-semibold tabular-nums">
@@ -20,16 +20,16 @@ export default function StepTimeline({ steps }: { steps: AgentStep[] }) {
             </span>
             <div className="flex-1">
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-                <span className="text-sm font-medium text-stone-900">{s.label}</span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-stone-400">
+                <span className="text-sm font-medium text-slate-900">{s.label}</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400">
                   {PHASE_LABEL[s.phase]}
                 </span>
                 {typeof s.hits === "number" && (
-                  <span className="font-mono text-[10px] text-stone-400">{s.hits} hits</span>
+                  <span className="font-mono text-[10px] text-slate-400">{s.hits} hits</span>
                 )}
               </div>
-              {s.query && <p className="mt-0.5 font-mono text-xs text-stone-500">&ldquo;{s.query}&rdquo;</p>}
-              {s.detail && <p className="mt-0.5 text-xs text-stone-400">{s.detail}</p>}
+              {s.query && <p className="mt-0.5 font-mono text-xs text-slate-500">&ldquo;{s.query}&rdquo;</p>}
+              {s.detail && <p className="mt-0.5 text-xs text-slate-400">{s.detail}</p>}
             </div>
           </li>
         ))}

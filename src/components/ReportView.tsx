@@ -7,8 +7,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   sectionNo += 1;
   const no = String(sectionNo).padStart(2, "0");
   return (
-    <section className="border border-stone-200 bg-white p-6 sm:p-7">
-      <h3 className="mb-4 flex items-baseline gap-3 border-b border-stone-100 pb-3 font-display text-lg font-semibold text-stone-900">
+    <section className="border border-slate-200 bg-white p-6 sm:p-7">
+      <h3 className="mb-4 flex items-baseline gap-3 border-b border-slate-100 pb-3 font-display text-lg font-semibold text-slate-900">
         <span className="index-serif text-base">{no}</span>
         {title}
       </h3>
@@ -18,11 +18,11 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 function List({ items }: { items: string[] }) {
-  if (!items.length) return <p className="text-xs text-stone-400">—</p>;
+  if (!items.length) return <p className="text-xs text-slate-400">—</p>;
   return (
     <ul className="space-y-2">
       {items.map((x, i) => (
-        <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-stone-700">
+        <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-slate-700">
           <span className="mt-2 h-px w-3 flex-none bg-accent/60" />
           <span>{x}</span>
         </li>
@@ -35,9 +35,9 @@ export default function ReportView({ result }: { result: ResearchResult }) {
   const r = result.report;
   sectionNo = 0; // レンダリングごとに採番リセット
   return (
-    <div className="animate-fade-up space-y-px bg-stone-200">
+    <div className="animate-fade-up space-y-px bg-slate-200">
       <Section title="エグゼクティブサマリー">
-        <p className="font-display text-[15px] leading-relaxed text-stone-700">{r.summary}</p>
+        <p className="font-display text-[15px] leading-relaxed text-slate-700">{r.summary}</p>
       </Section>
 
       {r.competitors.length > 0 && (
@@ -45,7 +45,7 @@ export default function ReportView({ result }: { result: ResearchResult }) {
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
-                <tr className="border-y border-stone-200 text-left align-bottom">
+                <tr className="border-y border-slate-200 text-left align-bottom">
                   <th className="label-mono py-2 pr-4 font-normal">企業</th>
                   <th className="label-mono py-2 pr-4 font-normal">概要</th>
                   <th className="label-mono py-2 pr-4 font-normal">強み</th>
@@ -54,11 +54,11 @@ export default function ReportView({ result }: { result: ResearchResult }) {
               </thead>
               <tbody>
                 {r.competitors.map((c, i) => (
-                  <tr key={i} className="border-b border-stone-100 align-top">
-                    <td className="py-3 pr-4 font-medium text-stone-900">{c.name}</td>
-                    <td className="py-3 pr-4 text-stone-600">{c.description}</td>
-                    <td className="py-3 pr-4 text-stone-600">{c.strengths}</td>
-                    <td className="py-3 text-stone-600">{c.weaknesses}</td>
+                  <tr key={i} className="border-b border-slate-100 align-top">
+                    <td className="py-3 pr-4 font-medium text-slate-900">{c.name}</td>
+                    <td className="py-3 pr-4 text-slate-600">{c.description}</td>
+                    <td className="py-3 pr-4 text-slate-600">{c.strengths}</td>
+                    <td className="py-3 text-slate-600">{c.weaknesses}</td>
                   </tr>
                 ))}
               </tbody>
@@ -67,7 +67,7 @@ export default function ReportView({ result }: { result: ResearchResult }) {
         </Section>
       )}
 
-      <div className="grid gap-px bg-stone-200 md:grid-cols-2">
+      <div className="grid gap-px bg-slate-200 md:grid-cols-2">
         <Section title="市場トレンド">
           <List items={r.trends} />
         </Section>
@@ -77,7 +77,7 @@ export default function ReportView({ result }: { result: ResearchResult }) {
       </div>
 
       <Section title="SWOT 分析">
-        <div className="grid grid-cols-1 gap-px bg-stone-200 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-px bg-slate-200 sm:grid-cols-2">
           {[
             { k: "Strengths", jp: "強み", items: r.swot.strengths },
             { k: "Weaknesses", jp: "弱み", items: r.swot.weaknesses },
@@ -85,8 +85,8 @@ export default function ReportView({ result }: { result: ResearchResult }) {
             { k: "Threats", jp: "脅威", items: r.swot.threats },
           ].map((q) => (
             <div key={q.k} className="bg-white p-4">
-              <p className="mb-2 font-display text-sm font-semibold text-stone-900">
-                {q.k} <span className="text-xs font-normal text-stone-400">／ {q.jp}</span>
+              <p className="mb-2 font-display text-sm font-semibold text-slate-900">
+                {q.k} <span className="text-xs font-normal text-slate-400">／ {q.jp}</span>
               </p>
               <List items={q.items} />
             </div>
@@ -96,13 +96,13 @@ export default function ReportView({ result }: { result: ResearchResult }) {
 
       {r.recommendations.length > 0 && (
         <Section title="推奨アクション">
-          <ol className="divide-y divide-stone-100 border-t border-stone-100">
+          <ol className="divide-y divide-slate-100 border-t border-slate-100">
             {r.recommendations.map((rec, i) => (
               <li key={i} className="flex gap-4 py-3">
                 <span className="index-serif text-base font-semibold tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                 <div>
-                  <p className="text-sm font-medium text-stone-900">{rec.title}</p>
-                  <p className="text-xs leading-relaxed text-stone-500">{rec.detail}</p>
+                  <p className="text-sm font-medium text-slate-900">{rec.title}</p>
+                  <p className="text-xs leading-relaxed text-slate-500">{rec.detail}</p>
                 </div>
               </li>
             ))}
@@ -115,7 +115,7 @@ export default function ReportView({ result }: { result: ResearchResult }) {
           <ol className="space-y-1.5">
             {r.sources.map((s, i) => (
               <li key={i} className="flex gap-2 text-sm">
-                <span className="font-mono text-[11px] text-stone-400">[{i + 1}]</span>
+                <span className="font-mono text-[11px] text-slate-400">[{i + 1}]</span>
                 <a
                   href={s.url}
                   target="_blank"

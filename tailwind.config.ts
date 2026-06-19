@@ -5,8 +5,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#1c1917", // 近黒（本文・プライマリ）
-        paper: "#f5f7f7", // 清潔な明色ペーパー（背景）
+        ink: "#0f172a", // slate-900（クールな近黒・プライマリ）
+        paper: "#f6f8f9", // 清潔な明色ペーパー（クール系）
         accent: "#0d9488", // ブランド差し色＝ティール（章番号・リンク・プロトコル）
       },
       fontFamily: {
