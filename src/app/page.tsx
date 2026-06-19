@@ -11,7 +11,7 @@ const FOCUS_OPTIONS = ["競合と市場機会", "新規参入の戦略", "ター
 const MODE_BADGE: Record<string, string> = {
   demo: "text-stone-400",
   "llm-only": "text-amber-700",
-  "web-agent": "text-wine",
+  "web-agent": "text-accent",
 };
 
 const LS_OPENAI = "ai-research-agent:openai";
@@ -93,7 +93,7 @@ export default function Home() {
 
   const hasKeys = openaiKey.trim().length > 0;
   const inputCls =
-    "w-full border border-stone-300 bg-white px-3.5 py-2.5 text-sm text-stone-800 outline-none transition focus:border-wine";
+    "w-full border border-stone-300 bg-white px-3.5 py-2.5 text-sm text-stone-800 outline-none transition focus:border-accent";
 
   return (
     <div className="min-h-screen">
@@ -153,7 +153,7 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={loading || !topic.trim()}
-                className="bg-ink px-6 py-2.5 text-sm font-medium text-paper transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:opacity-40"
+                className="bg-accent px-6 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {loading ? "調査中…" : "調査を開始"}
               </button>
@@ -170,7 +170,7 @@ export default function Home() {
                   <span className="font-mono text-[11px] uppercase tracking-wider text-stone-400">API Keys</span>
                   <span className="text-stone-300">·</span>
                   各自で入力（任意）
-                  <span className={`font-mono text-[10px] uppercase ${hasKeys ? "text-wine" : "text-stone-400"}`}>
+                  <span className={`font-mono text-[10px] uppercase ${hasKeys ? "text-accent" : "text-stone-400"}`}>
                     {hasKeys ? "live" : "demo"}
                   </span>
                 </span>
@@ -238,7 +238,7 @@ export default function Home() {
         {/* 状態 */}
         <div className="mt-12">
           {error && (
-            <div className="border-l-2 border-wine bg-white px-4 py-3 text-sm text-wine">{error}</div>
+            <div className="border-l-2 border-accent bg-white px-4 py-3 text-sm text-accent">{error}</div>
           )}
 
           {loading && (

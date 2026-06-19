@@ -6,8 +6,8 @@ const config: Config = {
     extend: {
       colors: {
         ink: "#1c1917", // 近黒（本文・プライマリ）
-        paper: "#f6f3ec", // 暖色ペーパー（背景）
-        wine: "#7f1d1d", // 差し色（章番号・リンク・プロトコル）
+        paper: "#f5f7f7", // 清潔な明色ペーパー（背景）
+        accent: "#0d9488", // ブランド差し色＝ティール（章番号・リンク・プロトコル）
       },
       fontFamily: {
         // 見出し：Source Serif 4（エディトリアル・レポート然）

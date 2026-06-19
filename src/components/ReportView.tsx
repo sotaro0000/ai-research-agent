@@ -23,7 +23,7 @@ function List({ items }: { items: string[] }) {
     <ul className="space-y-2">
       {items.map((x, i) => (
         <li key={i} className="flex gap-2.5 text-sm leading-relaxed text-stone-700">
-          <span className="mt-2 h-px w-3 flex-none bg-wine/60" />
+          <span className="mt-2 h-px w-3 flex-none bg-accent/60" />
           <span>{x}</span>
         </li>
       ))}
@@ -120,7 +120,7 @@ export default function ReportView({ result }: { result: ResearchResult }) {
                   href={s.url}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="break-all text-wine underline-offset-2 hover:underline"
+                  className="break-all text-accent underline-offset-2 hover:underline"
                 >
                   {s.title || s.url}
                 </a>
