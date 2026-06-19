@@ -7,5 +7,20 @@
 }
 
 body {
-  @apply bg-slate-50 text-slate-800 antialiased;
+  @apply bg-paper font-sans text-stone-700 antialiased;
+}
+
+::selection {
+  background: #7f1d1d;
+  color: #f6f3ec;
+}
+
+/* 等幅の小ラベル */
+.label-mono {
+  @apply font-mono text-[11px] uppercase tracking-[0.18em] text-stone-400;
+}
+
+/* 章番号（セリフ） */
+.index-serif {
+  @apply font-display text-wine;
 }

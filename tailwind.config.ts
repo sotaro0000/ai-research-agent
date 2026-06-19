@@ -5,37 +5,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        agent: {
-          50: "#f0fdfa",
-          100: "#ccfbf1",
-          200: "#99f6e4",
-          300: "#5eead4",
-          400: "#2dd4bf",
-          500: "#14b8a6",
-          600: "#0d9488",
-          700: "#0f766e",
-          800: "#115e59",
-          900: "#134e4a",
-        },
+        ink: "#1c1917", // 近黒（本文・プライマリ）
+        paper: "#f6f3ec", // 暖色ペーパー（背景）
+        wine: "#7f1d1d", // 差し色（章番号・リンク・プロトコル）
       },
       fontFamily: {
-        sans: [
-          "system-ui",
-          "-apple-system",
-          "Segoe UI",
-          "Hiragino Kaku Gothic ProN",
-          "Meiryo",
-          "sans-serif",
-        ],
+        // 見出し：Source Serif 4（エディトリアル・レポート然）
+        display: ['"Source Serif 4"', "Georgia", "serif"],
+        // 本文：Inter
+        sans: ["Inter", "system-ui", "-apple-system", "Hiragino Kaku Gothic ProN", "Meiryo", "sans-serif"],
+        // ラベル・数値：等幅
+        mono: ['"JetBrains Mono"', "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
       keyframes: {
         "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "0%": { opacity: "0", transform: "translateY(6px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
-        "fade-up": "fade-up 0.4s ease-out both",
+        "fade-up": "fade-up 0.35s ease-out both",
       },
     },
   },
