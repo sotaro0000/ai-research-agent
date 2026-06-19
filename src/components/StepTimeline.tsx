@@ -10,7 +10,7 @@ const PHASE_LABEL: Record<AgentStep["phase"], string> = {
 export default function StepTimeline({ steps }: { steps: AgentStep[] }) {
   if (!steps.length) return null;
   return (
-    <section className="border border-slate-200 bg-white p-6">
+    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
       <p className="label-mono mb-4">Research Protocol</p>
       <ol className="divide-y divide-slate-100 border-t border-slate-100">
         {steps.map((s, i) => (

@@ -93,7 +93,7 @@ export default function Home() {
 
   const hasKeys = openaiKey.trim().length > 0;
   const inputCls =
-    "w-full border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-800 outline-none transition focus:border-accent";
+    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 shadow-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-teal-100";
 
   return (
     <div className="min-h-screen">
@@ -154,14 +154,14 @@ export default function Home() {
               <button
                 type="submit"
                 disabled={loading || !topic.trim()}
-                className="bg-accent px-6 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {loading ? "調査中…" : "調査を開始"}
               </button>
             </div>
 
             {/* APIキー（BYOK） */}
-            <div className="border border-slate-300/70 bg-white">
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
               <button
                 type="button"
                 onClick={() => setKeysOpen((v) => !v)}
@@ -227,7 +227,7 @@ export default function Home() {
                     runResearch(ex, focus);
                   }}
                   disabled={loading}
-                  className="border border-slate-200 px-2 py-0.5 font-mono text-[11px] text-slate-500 transition hover:border-slate-400 hover:text-slate-800 disabled:opacity-50"
+                  className="rounded-full border border-slate-200 bg-white px-3 py-1 font-mono text-[11px] text-slate-500 transition hover:border-teal-400 hover:text-teal-700 disabled:opacity-50"
                 >
                   {ex}
                 </button>
@@ -243,7 +243,7 @@ export default function Home() {
           )}
 
           {loading && (
-            <div className="space-y-px bg-slate-200">
+            <div className="space-y-4">
               <div className="h-28 animate-pulse bg-white" />
               <div className="h-48 animate-pulse bg-white" />
               <p className="bg-paper pt-3 text-center font-mono text-[11px] text-slate-400">
@@ -255,7 +255,7 @@ export default function Home() {
           {!loading && !result && !error && (
             <div className="space-y-10">
               {/* 使い方（プロトコル） */}
-              <div className="border border-slate-200 bg-white p-6">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <p className="label-mono mb-4">使い方 — 3-step protocol</p>
                 <ol className="divide-y divide-slate-100 border-t border-slate-100">
                   {[
@@ -275,7 +275,7 @@ export default function Home() {
               </div>
 
               {/* レポートに含まれるもの */}
-              <div className="border border-slate-200 bg-white p-6">
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <p className="label-mono mb-4">レポートに含まれるもの</p>
                 <div className="flex flex-wrap gap-2">
                   {["エグゼクティブサマリー", "競合比較表", "市場トレンド", "参入・成長の機会", "SWOT 分析", "推奨アクション", "出典リンク"].map((x) => (
@@ -285,13 +285,13 @@ export default function Home() {
               </div>
 
               {/* メリット */}
-              <div className="grid grid-cols-1 gap-px border border-slate-200 bg-slate-200 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                 {[
                   ["自律実行で数分", "計画→検索→合成をエージェントが一気通貫。手作業の調査工数を圧縮"],
                   ["出典付きで検証可能", "実Web検索モードでは根拠URLを併記。結論を裏取りできる"],
                   ["登録不要・デモ即動作", "キー無しでデモ稼働。自分の OpenAI / Tavily キーで本物のWeb調査も"],
                 ].map(([t, d]) => (
-                  <div key={t} className="bg-white p-5">
+                  <div key={t} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                     <p className="font-display text-sm font-semibold text-slate-900">{t}</p>
                     <p className="mt-1 text-xs leading-relaxed text-slate-500">{d}</p>
                   </div>
@@ -301,7 +301,7 @@ export default function Home() {
           )}
 
           {result && (
-            <div className="space-y-px bg-slate-200">
+            <div className="space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2 bg-white px-5 py-3">
                 <div>
                   <p className="label-mono">Subject</p>

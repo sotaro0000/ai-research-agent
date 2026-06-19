@@ -7,7 +7,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   sectionNo += 1;
   const no = String(sectionNo).padStart(2, "0");
   return (
-    <section className="border border-slate-200 bg-white p-6 sm:p-7">
+    <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
       <h3 className="mb-4 flex items-baseline gap-3 border-b border-slate-100 pb-3 font-display text-lg font-semibold text-slate-900">
         <span className="index-serif text-base">{no}</span>
         {title}
@@ -35,7 +35,7 @@ export default function ReportView({ result }: { result: ResearchResult }) {
   const r = result.report;
   sectionNo = 0; // レンダリングごとに採番リセット
   return (
-    <div className="animate-fade-up space-y-px bg-slate-200">
+    <div className="animate-fade-up space-y-4">
       <Section title="エグゼクティブサマリー">
         <p className="font-display text-[15px] leading-relaxed text-slate-700">{r.summary}</p>
       </Section>
@@ -77,14 +77,14 @@ export default function ReportView({ result }: { result: ResearchResult }) {
       </div>
 
       <Section title="SWOT 分析">
-        <div className="grid grid-cols-1 gap-px bg-slate-200 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {[
             { k: "Strengths", jp: "強み", items: r.swot.strengths },
             { k: "Weaknesses", jp: "弱み", items: r.swot.weaknesses },
             { k: "Opportunities", jp: "機会", items: r.swot.opportunities },
             { k: "Threats", jp: "脅威", items: r.swot.threats },
           ].map((q) => (
-            <div key={q.k} className="bg-white p-4">
+            <div key={q.k} className="rounded-xl border border-slate-200 bg-slate-50/60 p-4">
               <p className="mb-2 font-display text-sm font-semibold text-slate-900">
                 {q.k} <span className="text-xs font-normal text-slate-400">／ {q.jp}</span>
               </p>
