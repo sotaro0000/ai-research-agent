@@ -1,12 +1,30 @@
 // LLM プロバイダの薄いラッパー（OpenAI / Anthropic）。SDK 非依存（生 fetch）。
+import type { Credentials } from "./types";
+
 export interface LlmConfig {
   provider: "openai" | "anthropic";
   apiKey: string;
   model: string;
 }
 
-/** 環境変数から LLM 設定を読む。未設定なら null。 */
-export function readLlmConfig(): LlmConfig | null {
+/**
+ * LLM 設定を解決する。
+ * 優先順位: ① 利用者が持ち込んだキー（BYOK） → ② サーバー環境変数（任意のフォールバック）。
+ * どちらも無ければ null。
+ */
+export function resolveLlmConfig(creds?: Credentials): LlmConfig | null {
+  // ① BYOK（利用者が各自入力したキー）
+  if (creds?.openaiApiKey) {
+    return { provider: "openai", apiKey: creds.openaiApiKey, model: process.env.OPENAI_MODEL || "gpt-4o-mini" };
+  }
+  if (creds?.anthropicApiKey) {
+    return {
+      provider: "anthropic",
+      apiKey: creds.anthropicApiKey,
+      model: process.env.ANTHROPIC_MODEL || "claude-haiku-4-5-20251001",
+    };
+  }
+  // ② 環境変数フォールバック（任意）
   const provider = (process.env.LLM_PROVIDER || "openai").toLowerCase();
   if (provider === "anthropic" && process.env.ANTHROPIC_API_KEY) {
     return {

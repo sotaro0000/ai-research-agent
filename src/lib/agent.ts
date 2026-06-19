@@ -3,6 +3,7 @@
 import type {
   AgentStep,
   Competitor,
+  Credentials,
   Recommendation,
   ResearchReport,
   ResearchResult,
@@ -10,8 +11,8 @@ import type {
   Source,
   Swot,
 } from "./types";
-import { readLlmConfig, llmJson, extractJson, type LlmConfig } from "./llm";
-import { readSearchConfig, runSearch } from "./search";
+import { resolveLlmConfig, llmJson, extractJson, type LlmConfig } from "./llm";
+import { resolveSearchConfig, runSearch } from "./search";
 import { buildDemoResult } from "./demo";
 
 const MAX_QUERIES = 4;
@@ -117,17 +118,21 @@ function normalizeReport(
   };
 }
 
-/** メインのエージェント実行。 */
-export async function runResearch(topic: string, focus: string): Promise<ResearchResult> {
+/** メインのエージェント実行。creds は利用者が持ち込んだ API キー（BYOK）。 */
+export async function runResearch(
+  topic: string,
+  focus: string,
+  creds?: Credentials,
+): Promise<ResearchResult> {
   const startedAt = Date.now();
-  const llm = readLlmConfig();
+  const llm = resolveLlmConfig(creds);
 
   // Tier 1: LLM キーなし → デモ
   if (!llm) {
     return buildDemoResult(topic, focus, Date.now() - startedAt);
   }
 
-  const search = readSearchConfig();
+  const search = resolveSearchConfig(creds);
   const steps: AgentStep[] = [];
 
   // 1) 計画

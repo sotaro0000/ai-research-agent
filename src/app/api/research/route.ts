@@ -8,7 +8,14 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 export async function POST(req: NextRequest) {
-  let body: { topic?: string; focus?: string };
+  let body: {
+    topic?: string;
+    focus?: string;
+    openaiApiKey?: string;
+    anthropicApiKey?: string;
+    tavilyApiKey?: string;
+    serperApiKey?: string;
+  };
   try {
     body = await req.json();
   } catch {
@@ -24,8 +31,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "トピックが長すぎます（120文字以内）。" }, { status: 400 });
   }
 
+  // BYOK: 利用者が持ち込んだキーをリクエスト単位で受け取る（サーバーには保存・ログしない）
+  const str = (v: unknown) => (typeof v === "string" && v.trim() ? v.trim() : undefined);
+  const creds = {
+    openaiApiKey: str(body.openaiApiKey),
+    anthropicApiKey: str(body.anthropicApiKey),
+    tavilyApiKey: str(body.tavilyApiKey),
+    serperApiKey: str(body.serperApiKey),
+  };
+
   try {
-    const result = await runResearch(topic, focus);
+    const result = await runResearch(topic, focus, creds);
     return NextResponse.json(result, { status: 200 });
   } catch (err) {
     console.error("[research] unexpected error", err);

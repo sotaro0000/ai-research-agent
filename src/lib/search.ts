@@ -1,12 +1,20 @@
 // Web検索プロバイダの抽象化（Tavily / Serper）。キー未設定なら null を返す。
-import type { SearchHit } from "./types";
+import type { Credentials, SearchHit } from "./types";
 
 interface SearchConfig {
   provider: "tavily" | "serper";
   apiKey: string;
 }
 
-export function readSearchConfig(): SearchConfig | null {
+/**
+ * 検索設定を解決する。
+ * 優先順位: ① 利用者が持ち込んだキー（BYOK） → ② サーバー環境変数（任意のフォールバック）。
+ */
+export function resolveSearchConfig(creds?: Credentials): SearchConfig | null {
+  // ① BYOK
+  if (creds?.tavilyApiKey) return { provider: "tavily", apiKey: creds.tavilyApiKey };
+  if (creds?.serperApiKey) return { provider: "serper", apiKey: creds.serperApiKey };
+  // ② 環境変数フォールバック
   const provider = (process.env.SEARCH_PROVIDER || "tavily").toLowerCase();
   if (provider === "serper" && process.env.SERPER_API_KEY) {
     return { provider: "serper", apiKey: process.env.SERPER_API_KEY };

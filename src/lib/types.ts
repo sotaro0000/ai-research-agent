@@ -3,6 +3,14 @@
 /** 実行モード（どこまで本格的に動いたか） */
 export type RunMode = "demo" | "llm-only" | "web-agent";
 
+/** 利用者が各自で持ち込む API キー（BYOK）。リクエスト単位で渡され、サーバーには保存しない。 */
+export interface Credentials {
+  openaiApiKey?: string;
+  anthropicApiKey?: string;
+  tavilyApiKey?: string;
+  serperApiKey?: string;
+}
+
 /** エージェントの実行ステップ（UIのタイムライン表示用） */
 export interface AgentStep {
   phase: "plan" | "search" | "synthesize";
