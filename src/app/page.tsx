@@ -124,7 +124,8 @@ export default function Home() {
             調べて、まとめる。
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-stone-500">
-            企業名やキーワードを与えると、エージェントが「調査計画 → Web検索 → レポート合成」を自律実行。
+            市場・競合リサーチの<span className="font-medium text-stone-700">“たたき台”が、数分で</span>手に入ります。
+            企業名やキーワードを与えると、エージェントが「調査計画 → Web検索 → レポート合成」を自律実行し、
             競合・市場トレンド・SWOT・推奨アクションを、出典付きの一枚のレポートにまとめます。
           </p>
 
@@ -252,23 +253,50 @@ export default function Home() {
           )}
 
           {!loading && !result && !error && (
-            <div className="border border-stone-200 bg-white p-6">
-              <p className="label-mono mb-4">3-step protocol</p>
-              <ol className="divide-y divide-stone-100 border-t border-stone-100">
+            <div className="space-y-10">
+              {/* 使い方（プロトコル） */}
+              <div className="border border-stone-200 bg-white p-6">
+                <p className="label-mono mb-4">使い方 — 3-step protocol</p>
+                <ol className="divide-y divide-stone-100 border-t border-stone-100">
+                  {[
+                    ["01", "調査計画", "トピックを複数のサブクエリへ分解"],
+                    ["02", "Web検索", "各クエリをツール実行で検索・収集"],
+                    ["03", "レポート合成", "結果を統合し構造化レポートに"],
+                  ].map(([n, t, d]) => (
+                    <li key={n} className="flex gap-4 py-3">
+                      <span className="index-serif text-base font-semibold">{n}</span>
+                      <div>
+                        <p className="text-sm font-medium text-stone-900">{t}</p>
+                        <p className="text-xs text-stone-500">{d}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* レポートに含まれるもの */}
+              <div className="border border-stone-200 bg-white p-6">
+                <p className="label-mono mb-4">レポートに含まれるもの</p>
+                <div className="flex flex-wrap gap-2">
+                  {["エグゼクティブサマリー", "競合比較表", "市場トレンド", "参入・成長の機会", "SWOT 分析", "推奨アクション", "出典リンク"].map((x) => (
+                    <span key={x} className="border border-stone-200 px-2.5 py-1 text-xs text-stone-600">{x}</span>
+                  ))}
+                </div>
+              </div>
+
+              {/* メリット */}
+              <div className="grid grid-cols-1 gap-px border border-stone-200 bg-stone-200 sm:grid-cols-3">
                 {[
-                  ["01", "調査計画", "トピックを複数のサブクエリへ分解"],
-                  ["02", "Web検索", "各クエリをツール実行で検索・収集"],
-                  ["03", "レポート合成", "結果を統合し構造化レポートに"],
-                ].map(([n, t, d]) => (
-                  <li key={n} className="flex gap-4 py-3">
-                    <span className="index-serif text-base font-semibold">{n}</span>
-                    <div>
-                      <p className="text-sm font-medium text-stone-900">{t}</p>
-                      <p className="text-xs text-stone-500">{d}</p>
-                    </div>
-                  </li>
+                  ["自律実行で数分", "計画→検索→合成をエージェントが一気通貫。手作業の調査工数を圧縮"],
+                  ["出典付きで検証可能", "実Web検索モードでは根拠URLを併記。結論を裏取りできる"],
+                  ["登録不要・デモ即動作", "キー無しでデモ稼働。自分の OpenAI / Tavily キーで本物のWeb調査も"],
+                ].map(([t, d]) => (
+                  <div key={t} className="bg-white p-5">
+                    <p className="font-display text-sm font-semibold text-stone-900">{t}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-stone-500">{d}</p>
+                  </div>
                 ))}
-              </ol>
+              </div>
             </div>
           )}
 
