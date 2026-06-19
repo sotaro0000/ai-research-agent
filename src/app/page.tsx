@@ -97,39 +97,33 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* トップバー */}
-      <header className="border-b border-slate-300/70">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-5 py-3.5">
-          <div className="flex items-baseline gap-2.5">
-            <span className="font-display text-base font-bold tracking-tight text-ink">AI Research Agent</span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">dossier</span>
+      {/* ===== ダークグラデのヒーロー（ナビ内包）===== */}
+      <section className="relative overflow-hidden bg-slate-950 text-white">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-teal-900/80"></div>
+        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-teal-500/20 blur-3xl"></div>
+
+        <div className="relative mx-auto max-w-5xl px-5">
+          <div className="flex items-center justify-between py-4">
+            <div className="flex items-baseline gap-2.5">
+              <span className="font-display text-base font-bold tracking-tight text-white">AI Research Agent</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-teal-300">dossier</span>
+            </div>
+            <a href="https://github.com/sotaro0000/ai-research-agent" target="_blank" rel="noreferrer noopener" className="font-mono text-xs text-slate-300 underline-offset-4 transition hover:text-white hover:underline">GitHub ↗</a>
           </div>
-          <a
-            href="https://github.com/sotaro0000/ai-research-agent"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="font-mono text-xs text-slate-500 underline-offset-4 hover:text-ink hover:underline"
-          >
-            GitHub ↗
-          </a>
-        </div>
-      </header>
 
-      <main className="mx-auto max-w-4xl px-5 py-12 sm:py-16">
-        {/* 見出し + 入力 */}
-        <div className="max-w-2xl">
-          <p className="label-mono">Autonomous Market Research</p>
-          <h1 className="mt-3 font-display text-[2rem] font-bold leading-[1.2] tracking-tight text-ink sm:text-[2.75rem]">
-            市場を、エージェントが<br className="hidden sm:block" />
-            調べて、まとめる。
-          </h1>
-          <p className="mt-4 text-sm leading-relaxed text-slate-500">
-            市場・競合リサーチの<span className="font-medium text-slate-700">“たたき台”が、数分で</span>手に入ります。
-            企業名やキーワードを与えると、エージェントが「調査計画 → Web検索 → レポート合成」を自律実行し、
-            競合・市場トレンド・SWOT・推奨アクションを、出典付きの一枚のレポートにまとめます。
-          </p>
+          <div className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-2">
+            {/* 左：コピー＋入力 */}
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-teal-200">Autonomous Market Research</span>
+              <h1 className="mt-4 font-display text-[2rem] font-bold leading-[1.18] tracking-tight sm:text-[2.6rem]">
+                市場を、エージェントが<br className="hidden sm:block" />
+                調べて、<span className="text-teal-400">まとめる。</span>
+              </h1>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-300">
+                市場・競合リサーチの“たたき台”が、数分で。企業名やキーワードを与えると、エージェントが「調査計画 → Web検索 → レポート合成」を自律実行し、競合・SWOT・推奨アクションを出典付きで一枚にまとめます。
+              </p>
 
-          <form onSubmit={onSubmit} className="mt-7 space-y-2.5">
+              <form onSubmit={onSubmit} className="mt-7 space-y-2.5">
             <input
               type="text"
               value={topic}
@@ -161,13 +155,13 @@ export default function Home() {
             </div>
 
             {/* APIキー（BYOK） */}
-            <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
+            <div className="rounded-xl border border-white/15 bg-white/5">
               <button
                 type="button"
                 onClick={() => setKeysOpen((v) => !v)}
                 className="flex w-full items-center justify-between px-3.5 py-2.5 text-left"
               >
-                <span className="flex items-center gap-2 text-sm text-slate-700">
+                <span className="flex items-center gap-2 text-sm text-slate-200">
                   <span className="font-mono text-[11px] uppercase tracking-wider text-slate-400">API Keys</span>
                   <span className="text-slate-300">·</span>
                   各自で入力（任意）
@@ -227,17 +221,52 @@ export default function Home() {
                     runResearch(ex, focus);
                   }}
                   disabled={loading}
-                  className="rounded-full border border-slate-200 bg-white px-3 py-1 font-mono text-[11px] text-slate-500 transition hover:border-teal-400 hover:text-teal-700 disabled:opacity-50"
+                  className="rounded-full border border-white/15 px-3 py-1 font-mono text-[11px] text-slate-300 transition hover:border-teal-400 hover:text-white disabled:opacity-50"
                 >
                   {ex}
                 </button>
               ))}
             </div>
           </form>
-        </div>
 
-        {/* 状態 */}
-        <div className="mt-12">
+              <div className="mt-5 flex flex-wrap gap-2">
+                {["登録不要", "デモは即動作", "出典付き（実検索時）"].map((b) => (
+                  <span key={b} className="rounded-full bg-white/5 px-3 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">{b}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* 右：出力プレビュー（レポート） */}
+            <div className="relative">
+              <div className="rounded-2xl border border-white/10 bg-white p-5 shadow-2xl">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-teal-700">Report</span>
+                  <span className="font-mono text-[10px] text-slate-400">中小企業向けAIチャットボット</span>
+                </div>
+                <p className="mt-3 text-[11px] leading-relaxed text-slate-600">市場は拡大基調。大手は機能網羅型、新興はUX特化型。中間層の“手軽さ×日本語精度”に参入機会。</p>
+                <div className="mt-3">
+                  <p className="font-display text-[11px] font-semibold text-slate-900">競合比較</p>
+                  <div className="mt-1 space-y-1">
+                    {[["大手A", "網羅 / 高価"], ["新興B", "UX / 実績薄"], ["特化C", "専門 / 小規模"]].map(([n, d]) => (
+                      <div key={n} className="flex justify-between rounded bg-slate-50 px-2 py-1 text-[10px]"><span className="font-medium text-slate-700">{n}</span><span className="text-slate-500">{d}</span></div>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-3 grid grid-cols-2 gap-1">
+                  {[["S", "小回り"], ["W", "認知"], ["O", "AI需要"], ["T", "価格競争"]].map(([k, v]) => (
+                    <div key={k} className="rounded bg-teal-50 px-2 py-1 text-[10px] text-teal-800"><span className="font-mono font-bold">{k}</span> {v}</div>
+                  ))}
+                </div>
+                <p className="mt-3 font-mono text-[9px] text-slate-400">出典 [1] [2] [3] ・ demo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 本体（ライト）===== */}
+      <main className="mx-auto max-w-5xl px-5 py-14">
+        <div>
           {error && (
             <div className="border-l-2 border-accent bg-white px-4 py-3 text-sm text-accent">{error}</div>
           )}
