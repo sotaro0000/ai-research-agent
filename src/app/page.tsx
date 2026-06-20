@@ -98,29 +98,32 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* ===== ダークグラデのヒーロー（ナビ内包）===== */}
-      <section className="relative overflow-hidden bg-slate-950 text-white">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-teal-900/80"></div>
-        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-teal-500/20 blur-3xl"></div>
-
+      {/* ===== エディトリアル（報告書）型ヒーロー：ライト紙面・serif・マストヘッド ===== */}
+      <section className="relative overflow-hidden border-b border-slate-300 bg-paper">
         <div className="relative mx-auto max-w-5xl px-5">
-          <div className="flex items-center justify-between py-4">
-            <div className="flex items-baseline gap-2.5">
-              <span className="font-display text-base font-bold tracking-tight text-white">AI Research Agent</span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-teal-300">dossier</span>
+          {/* マストヘッド */}
+          <div className="flex items-center justify-between border-b-2 border-double border-slate-300 py-4">
+            <div className="flex items-baseline gap-3">
+              <span className="font-display text-lg font-semibold tracking-tight text-slate-900">AI Research Agent</span>
+              <span className="hidden font-mono text-[10px] uppercase tracking-[0.25em] text-accent sm:inline">Market Dossier</span>
             </div>
-            <a href="https://github.com/sotaro0000/ai-research-agent" target="_blank" rel="noreferrer noopener" className="font-mono text-xs text-slate-300 underline-offset-4 transition hover:text-white hover:underline">GitHub ↗</a>
+            <a href="https://github.com/sotaro0000/ai-research-agent" target="_blank" rel="noreferrer noopener" className="font-mono text-xs text-slate-500 underline-offset-4 transition hover:text-slate-900 hover:underline">GitHub ↗</a>
+          </div>
+          {/* 発行ライン */}
+          <div className="flex items-center justify-between border-b border-slate-200 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400">
+            <span>Autonomous Market Research</span>
+            <span className="hidden sm:inline">Plan · Search · Synthesize</span>
           </div>
 
-          <div className="grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-2">
+          <div className="grid items-start gap-10 py-12 sm:py-14 lg:grid-cols-2">
             {/* 左：コピー＋入力 */}
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-teal-200">Autonomous Market Research</span>
-              <h1 className="mt-4 font-display text-[2rem] font-bold leading-[1.18] tracking-tight sm:text-[2.6rem]">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">No.01 — Market Brief</p>
+              <h1 className="mt-3 font-display text-[2.1rem] font-semibold leading-[1.15] tracking-tight text-slate-900 sm:text-[2.7rem]">
                 市場を、エージェントが<br className="hidden sm:block" />
-                調べて、<span className="text-teal-400">まとめる。</span>
+                調べて、<span className="italic text-accent">まとめる。</span>
               </h1>
-              <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-300">
+              <p className="mt-4 max-w-xl border-l-2 border-slate-300 pl-4 text-[15px] leading-relaxed text-slate-600">
                 市場・競合リサーチの“たたき台”が、数分で。企業名やキーワードを与えると、エージェントが「調査計画 → Web検索 → レポート合成」を自律実行し、競合・SWOT・推奨アクションを出典付きで一枚にまとめます。
               </p>
 
@@ -156,13 +159,13 @@ export default function Home() {
             </div>
 
             {/* APIキー（BYOK） */}
-            <div className="rounded-xl border border-white/15 bg-white/5">
+            <div className="rounded-xl border border-slate-200 bg-white">
               <button
                 type="button"
                 onClick={() => setKeysOpen((v) => !v)}
                 className="flex w-full items-center justify-between px-3.5 py-2.5 text-left"
               >
-                <span className="flex items-center gap-2 text-sm text-slate-200">
+                <span className="flex items-center gap-2 text-sm text-slate-600">
                   <span className="font-mono text-[11px] uppercase tracking-wider text-slate-400">API Keys</span>
                   <span className="text-slate-300">·</span>
                   各自で入力（任意）
@@ -222,7 +225,7 @@ export default function Home() {
                     runResearch(ex, focus);
                   }}
                   disabled={loading}
-                  className="rounded-full border border-white/15 px-3 py-1 font-mono text-[11px] text-slate-300 transition hover:border-teal-400 hover:text-white disabled:opacity-50"
+                  className="rounded-full border border-slate-200 bg-white px-3 py-1 font-mono text-[11px] text-slate-500 transition hover:border-teal-500 hover:text-accent disabled:opacity-50"
                 >
                   {ex}
                 </button>
@@ -232,33 +235,43 @@ export default function Home() {
 
               <div className="mt-5 flex flex-wrap gap-2">
                 {["登録不要", "デモは即動作", "出典付き（実検索時）"].map((b) => (
-                  <span key={b} className="rounded-full bg-white/5 px-3 py-1 text-[11px] text-slate-300 ring-1 ring-white/10">{b}</span>
+                  <span key={b} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] text-slate-500">{b}</span>
                 ))}
               </div>
             </div>
 
-            {/* 右：出力プレビュー（レポート） */}
-            <div className="relative">
-              <div className="rounded-2xl border border-white/10 bg-white p-5 shadow-2xl">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-teal-700">Report</span>
-                  <span className="font-mono text-[10px] text-slate-400">中小企業向けAIチャットボット</span>
+            {/* 右：出力プレビュー（紙面の報告書＝ドシエ）*/}
+            <div className="relative lg:pl-2">
+              <div className="relative rounded-sm border border-slate-300 bg-white p-6 shadow-xl shadow-slate-300/50">
+                {/* 紙面マストヘッド */}
+                <div className="flex items-baseline justify-between border-b-2 border-double border-slate-300 pb-2">
+                  <span className="font-display text-sm font-semibold tracking-wide text-slate-900">MARKET DOSSIER</span>
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-slate-400">demo</span>
                 </div>
-                <p className="mt-3 text-[11px] leading-relaxed text-slate-600">市場は拡大基調。大手は機能網羅型、新興はUX特化型。中間層の“手軽さ×日本語精度”に参入機会。</p>
-                <div className="mt-3">
-                  <p className="font-display text-[11px] font-semibold text-slate-900">競合比較</p>
-                  <div className="mt-1 space-y-1">
+                <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-accent">Subject — 中小企業向けAIチャットボット</p>
+                {/* 本文（ドロップキャップ）*/}
+                <p className="mt-3 font-display text-[12.5px] leading-relaxed text-slate-700 [&::first-letter]:float-left [&::first-letter]:mr-1.5 [&::first-letter]:font-display [&::first-letter]:text-4xl [&::first-letter]:font-semibold [&::first-letter]:leading-[0.8] [&::first-letter]:text-accent">
+                  市場は拡大基調。大手は機能網羅型、新興はUX特化型に二極化し、中間層の“手軽さ×日本語精度”に明確な参入機会が残る。
+                </p>
+                {/* 競合比較（罫線表）*/}
+                <div className="mt-4">
+                  <p className="font-mono text-[9px] uppercase tracking-widest text-slate-400">§ 競合比較</p>
+                  <div className="mt-1.5 divide-y divide-slate-100 border-y border-slate-200">
                     {[["大手A", "網羅 / 高価"], ["新興B", "UX / 実績薄"], ["特化C", "専門 / 小規模"]].map(([n, d]) => (
-                      <div key={n} className="flex justify-between rounded bg-slate-50 px-2 py-1 text-[10px]"><span className="font-medium text-slate-700">{n}</span><span className="text-slate-500">{d}</span></div>
+                      <div key={n} className="flex justify-between py-1 text-[11px]"><span className="font-display font-medium text-slate-800">{n}</span><span className="text-slate-500">{d}</span></div>
                     ))}
                   </div>
                 </div>
-                <div className="mt-3 grid grid-cols-2 gap-1">
-                  {[["S", "小回り"], ["W", "認知"], ["O", "AI需要"], ["T", "価格競争"]].map(([k, v]) => (
-                    <div key={k} className="rounded bg-teal-50 px-2 py-1 text-[10px] text-teal-800"><span className="font-mono font-bold">{k}</span> {v}</div>
-                  ))}
+                {/* SWOT */}
+                <div className="mt-4">
+                  <p className="font-mono text-[9px] uppercase tracking-widest text-slate-400">§ SWOT</p>
+                  <div className="mt-1.5 grid grid-cols-2 gap-px overflow-hidden rounded-sm border border-slate-200 bg-slate-200">
+                    {[["S", "小回り"], ["W", "認知"], ["O", "AI需要"], ["T", "価格競争"]].map(([k, v]) => (
+                      <div key={k} className="bg-white px-2 py-1.5 text-[10px] text-slate-600"><span className="font-mono font-bold text-accent">{k}</span> {v}</div>
+                    ))}
+                  </div>
                 </div>
-                <p className="mt-3 font-mono text-[9px] text-slate-400">出典 [1] [2] [3] ・ demo</p>
+                <p className="mt-4 border-t border-slate-200 pt-2 font-mono text-[9px] tracking-wide text-slate-400">出典 [1] [2] [3] ／ generated by agent</p>
               </div>
             </div>
           </div>
