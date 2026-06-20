@@ -24,6 +24,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ResearchResult | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const [openaiKey, setOpenaiKey] = useState("");
   const [tavilyKey, setTavilyKey] = useState("");
@@ -283,6 +284,20 @@ export default function Home() {
 
           {!loading && !result && !error && (
             <div className="space-y-10">
+              {/* メリット（「なぜ使うか」を先出し） */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {[
+                  ["自律実行で数分", "計画→検索→合成をエージェントが一気通貫。手作業の調査工数を圧縮"],
+                  ["出典付きで検証可能", "実Web検索モードでは根拠URLを併記。結論を裏取りできる"],
+                  ["登録不要・デモ即動作", "キー無しでデモ稼働。自分の OpenAI / Tavily キーで本物のWeb調査も"],
+                ].map(([t, d]) => (
+                  <div key={t} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <p className="font-display text-sm font-semibold text-slate-900">{t}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-slate-500">{d}</p>
+                  </div>
+                ))}
+              </div>
+
               {/* 使い方（プロトコル） */}
               <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <p className="label-mono mb-4">使い方 — 3-step protocol</p>
@@ -312,25 +327,50 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-
-              {/* メリット */}
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                {[
-                  ["自律実行で数分", "計画→検索→合成をエージェントが一気通貫。手作業の調査工数を圧縮"],
-                  ["出典付きで検証可能", "実Web検索モードでは根拠URLを併記。結論を裏取りできる"],
-                  ["登録不要・デモ即動作", "キー無しでデモ稼働。自分の OpenAI / Tavily キーで本物のWeb調査も"],
-                ].map(([t, d]) => (
-                  <div key={t} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <p className="font-display text-sm font-semibold text-slate-900">{t}</p>
-                    <p className="mt-1 text-xs leading-relaxed text-slate-500">{d}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           )}
 
           {result && (
             <div className="space-y-4">
+              {/* 再実行・共有動線 */}
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <button
+                  onClick={() => {
+                    setResult(null);
+                    setTopic("");
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50"
+                >
+                  ← 別のテーマで調査
+                </button>
+                <button
+                  onClick={() => {
+                    const r = result.report;
+                    const text = [
+                      `【市場リサーチ】${r.topic} ／ ${r.focus}`,
+                      "",
+                      r.summary,
+                      "",
+                      "■ 推奨アクション",
+                      ...r.recommendations.map((x, i) => `${i + 1}. ${x.title}`),
+                      "",
+                      "— AI Research Agent (https://sotaro0000-research-agent.vercel.app)",
+                    ].join("\n");
+                    navigator.clipboard?.writeText(text).then(
+                      () => {
+                        setCopied(true);
+                        window.setTimeout(() => setCopied(false), 2000);
+                      },
+                      () => {},
+                    );
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50"
+                >
+                  {copied ? "コピーしました" : "要点をコピー"}
+                </button>
+              </div>
+
               <div className="flex flex-wrap items-center justify-between gap-2 bg-white px-5 py-3">
                 <div>
                   <p className="label-mono">Subject</p>
